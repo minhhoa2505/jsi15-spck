@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meraki – Nhà sách truyện tranh & Manga</title>
+  <meta name="description"
+    content="Meraki – Đặt mua truyện tranh, manga, light novel chính hãng. Giao hàng toàn quốc, giá tốt, bộ sưu tập phong phú." />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Titan+One&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- ===== HEADER ===== -->
+    <header id="main-header">
+      <div class="container">
+        <div class="top-bar">
+          <div class="top-bar-inner">
+            <div class="logo">
+              <a href="index.html">Meraki</a>
+            </div>
+
+            <nav class="main-nav">
+              <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="products.html" class="active">Danh sách truyện</a></li>
+                <li><a href="cart.html">Giỏ hàng</a></li>
+              </ul>
+            </nav>
+
+            <div class="header-right">
+
+
+
+
+              <div class="header-icon">
+                <i id="user-icon" class="fa-solid fa-user"></i>
+                <ul class="user-info">
+                  <li class="signbtn"><a href="./login-form.html"><i class="fa-solid fa-right-to-bracket"></i> Đăng
+                      nhập</a></li>
+                  <li class="signbtn"><a href="./signup-form.html"><i class="fa-solid fa-user-plus"></i> Đăng ký</a>
+                  </li>
+                  <li class="divider"></li>
+                  <li><a href="#"><i class="fa-solid fa-clock-rotate-left"></i> Đơn hàng của tôi</a></li>
+                  <li><a href="#"><i class="fa-solid fa-heart"></i> Danh sách yêu thích</a></li>
+                  <li class="divider"></li>
+                  <li><a href="admin.html"><i class="fa-solid fa-gear"></i> Quản trị</a></li>
+                </ul>
+              </div>
+
+              <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+                <span></span><span></span><span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- ===== END HEADER ===== -->
+
+    <main style="padding-top: 85px;">
+
+
+      <!-- ===== DANH SÁCH TRUYỆN ===== -->
+      <section class="truyen-noi-bat" id="manga-list-section">
+        <div class="container">
+          <div class="search-container" style="margin-bottom: 30px; text-align: center;">
+            <div class="search-group" style="display: inline-flex; position: relative; max-width: 500px; width: 100%;">
+              <input type="text" id="product-search-input" class="search-bar" placeholder="Tìm kiếm truyện, tác giả..." style="padding: 12px 45px 12px 20px; border-radius: 25px; border: 2px solid #ddd; width: 100%; font-size: 16px; outline: none; transition: all 0.3s;">
+              <button id="product-search-btn" class="search-button" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #7b2d8b; font-size: 18px;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </div>
+          <div class="section-header">
+            <h3 class="title"><i class="fa-solid fa-book-open"></i> Danh sách truyện</h3>
+          </div>
+          <div class="row g-3" id="truyen-noi-bat-list">
+            <!-- Sản phẩm sẽ được render ở đây qua JS -->
+          </div>
+        </div>
+      </section>
+      <!-- ===== END DANH SÁCH TRUYỆN ===== -->
+
+
+
+
+
+
+
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-main">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-brand">
+              <h2 class="footer-logo"><a href="index.html">Meraki</a></h2>
+              <p>Nhà sách truyện tranh, manga, light novel chính hãng hàng đầu Việt Nam. Giao hàng toàn quốc, cam kết
+                chất lượng.</p>
+              <div class="footer-social">
+                <a href="" aria-label="Facebook"><i class="fa-brands fa-square-facebook"></i></a>
+                <a href="" aria-label="Twitter"><i class="fa-brands fa-square-x-twitter"></i></a>
+                <a href="" aria-label="Instagram"><i class="fa-brands fa-square-instagram"></i></a>
+                <a href="" aria-label="Youtube"><i class="fa-brands fa-square-youtube"></i></a>
+                <a href="" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 col-6">
+            <div class="footer-links">
+              <h5>Mua sắm</h5>
+              <ul>
+                <li><a href="#">Bán chạy nhất</a></li>
+                <li><a href="#">Hàng mới về</a></li>
+                <li><a href="#">Trọn bộ</a></li>
+                <li><a href="#">Combo tiết kiệm</a></li>
+                <li><a href="#">Khuyến mãi</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 col-6">
+            <div class="footer-links">
+              <h5>Hỗ trợ</h5>
+              <ul>
+                <li><a href="#">Chính sách đổi trả</a></li>
+                <li><a href="#">Chính sách vận chuyển</a></li>
+                <li><a href="#">Hướng dẫn đặt hàng</a></li>
+                <li><a href="#">Câu hỏi thường gặp</a></li>
+                <li><a href="#">Liên hệ</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-newsletter">
+              <h5>Đăng ký nhận tin</h5>
+              <p>Nhận thông báo hàng mới về và ưu đãi đặc biệt mỗi tuần.</p>
+              <div class="newsletter-form">
+                <input type="email" placeholder="Nhập email của bạn..." />
+                <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+              </div>
+              <div class="payment-icons">
+                <i class="fa-brands fa-cc-visa"></i>
+                <i class="fa-brands fa-cc-mastercard"></i>
+                <i class="fa-solid fa-university"></i>
+                <i class="fa-solid fa-mobile-screen"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <p>Copyright © 2025 <strong>Meraki</strong>. All Rights Reserved.</p>
+          <div class="footer-bottom-links">
+            <a href="#">Điều khoản</a>
+            <a href="#">Bảo mật</a>
+            <a href="#">Liên hệ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  <script type="module" src="./js/products.js"></script>
+</body>
+
+</html>

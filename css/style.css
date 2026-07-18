@@ -1,0 +1,577 @@
+@import url("./reset.css");
+@import url("./header.css");
+@import url("./footer.css");
+
+/* ============================================
+   TRANG CHỦ – ĐẶT MUA TRUYỆN
+   ============================================ */
+
+main {
+  /* Offset header cố định */
+  .hero { margin-top: 75px; }
+
+  /* ---- HERO ---- */
+  .hero {
+    .carousel-inner {
+      .hero-slide {
+        display: flex;
+        align-items: center;
+        min-height: 500px;
+        padding: 60px;
+        gap: 40px;
+        position: relative;
+
+        .hero-slide-content {
+          flex: 1;
+          color: white;
+          z-index: 2;
+
+          .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+          }
+
+          h2 {
+            font-family: "Titan One", cursive;
+            font-size: 52px;
+            color: white;
+            margin-bottom: 10px;
+            line-height: 1.1;
+          }
+
+          p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.82);
+            margin-bottom: 16px;
+            line-height: 1.7;
+            max-width: 420px;
+          }
+
+          .hero-price-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+
+            .hero-price {
+              font-size: 30px;
+              font-weight: 800;
+              color: var(--second-color--);
+            }
+
+            .hero-price-old {
+              font-size: 16px;
+              color: rgba(255,255,255,0.5);
+              text-decoration: line-through;
+            }
+
+            .hero-discount {
+              background: #ff4757;
+              color: white;
+              font-size: 12px;
+              font-weight: 800;
+              padding: 3px 9px;
+              border-radius: 20px;
+            }
+          }
+
+          .hero-btns {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+
+            .btn-buy-now {
+              background: var(--second-color--);
+              color: #000;
+              padding: 13px 26px;
+              border-radius: 8px;
+              font-weight: 700;
+              font-size: 15px;
+              border: 2px solid var(--second-color--);
+              transition: all 0.2s;
+
+              &:hover { background: transparent; color: var(--second-color--); }
+            }
+
+            .btn-detail {
+              background: transparent;
+              color: white;
+              padding: 13px 22px;
+              border-radius: 8px;
+              font-weight: 600;
+              font-size: 15px;
+              border: 2px solid rgba(255,255,255,0.45);
+              transition: all 0.2s;
+
+              &:hover { background: rgba(255,255,255,0.12); border-color: white; }
+            }
+          }
+        }
+
+        .hero-slide-img {
+          flex-shrink: 0;
+          width: 240px;
+          height: 340px;
+          border-radius: 14px;
+          overflow: hidden;
+          box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+          z-index: 2;
+
+          img { width: 100%; height: 100%; object-fit: cover; }
+        }
+      }
+    }
+
+    .carousel-indicators button {
+      width: 8px; height: 8px;
+      border-radius: 50%; border: none;
+      opacity: 0.5; background: white;
+      transition: all 0.3s;
+
+      &.active { width: 22px; border-radius: 4px; opacity: 1; }
+    }
+  }
+
+  /* ---- STATS BAR ---- */
+  .stats-bar {
+    background: var(--main-color--);
+    padding: 18px 0;
+    border-bottom: 2px solid var(--second-color--);
+
+    .stats-inner {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        i { font-size: 26px; color: var(--second-color--); }
+
+        div {
+          strong { display: block; font-size: 14px; font-weight: 800; color: #111; }
+          span { font-size: 12px; color: #666; }
+        }
+      }
+    }
+  }
+
+  /* ---- SECTION CHUNG ---- */
+  section {
+    padding: 44px 0;
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+
+      .title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #111;
+        border: none;
+        padding: 0; margin: 0;
+
+        i { color: var(--second-color--); margin-right: 7px; }
+      }
+
+      .see-all {
+        font-size: 13px;
+        font-weight: 600;
+        color: #333;
+        border: 1.5px solid #333;
+        padding: 6px 14px;
+        border-radius: 20px;
+        transition: all 0.2s;
+
+        &:hover { background: #333; color: white; }
+      }
+    }
+  }
+
+  /* ---- MANGA / PRODUCT CARD ---- */
+  .box-manga {
+    display: block;
+    text-decoration: none !important;
+    color: inherit;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    transition: transform 0.25s, box-shadow 0.25s;
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.13);
+    }
+
+    .box-manga-img {
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+
+      img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s;
+      }
+
+      .manga-badge {
+        position: absolute;
+        top: 10px; left: 10px;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 800;
+
+        &.hot { background: #ff4757; color: white; }
+        &.new { background: #2ed573; color: white; }
+        &.end { background: #747d8c; color: white; }
+      }
+
+      .manga-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        opacity: 0;
+        transition: opacity 0.25s;
+        gap: 6px;
+      }
+    }
+
+    &:hover .box-manga-img img { transform: scale(1.08); }
+    &:hover .manga-overlay { opacity: 1; }
+
+    .manga-info {
+      padding: 12px 14px;
+
+      h4 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #111;
+        margin-bottom: 7px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .manga-price {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+
+        .price-new {
+          font-size: 16px;
+          font-weight: 800;
+          color: #e53935;
+        }
+
+        .price-old {
+          font-size: 12px;
+          color: #bbb;
+          text-decoration: line-through;
+        }
+      }
+
+      .manga-meta {
+        display: flex;
+        gap: 12px;
+        font-size: 12px;
+        color: #888;
+
+        i { color: var(--second-color--); margin-right: 2px; }
+
+        .out-of-stock { color: #e53935; }
+      }
+    }
+  }
+
+  /* ---- HÀNG MỚI VỀ (list layout) ---- */
+  .truyen-moi-cap-nhat {
+    background: #fafafa;
+
+    .new-arrivals-list {
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #eee;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+
+      .arrival-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        border-bottom: 1px solid #f5f5f5;
+        transition: background 0.15s;
+
+        &:last-child { border-bottom: none; }
+        &:hover { background: #fffef5; }
+
+        .arrival-thumb {
+          flex-shrink: 0;
+          width: 50px; height: 65px;
+          border-radius: 5px;
+          overflow: hidden;
+          border: 1px solid #eee;
+
+          img { width: 100%; height: 100%; object-fit: cover; }
+        }
+
+        .arrival-body {
+          flex: 1;
+          min-width: 0;
+
+          .arrival-title {
+            display: block;
+            font-weight: 700;
+            font-size: 14px;
+            color: #111;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &:hover { color: var(--second-color--); }
+          }
+
+          .arrival-author {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 5px;
+          }
+
+          .arrival-price {
+            .price-new { font-size: 15px; font-weight: 800; color: #e53935; }
+            .price-old { font-size: 12px; color: #bbb; text-decoration: line-through; margin-left: 6px; }
+          }
+        }
+
+        .arrival-action {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 8px;
+          flex-shrink: 0;
+
+          .arrival-badge {
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 12px;
+            background: #e8f5e9;
+            color: #388e3c;
+            white-space: nowrap;
+
+            &.sale { background: #ffebee; color: #e53935; }
+          }
+
+          .btn-cart-sm {
+            width: 32px; height: 32px;
+            background: var(--main-color--);
+            border: 1.5px solid var(--second-color--);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 14px;
+            transition: all 0.2s;
+
+            &:hover { background: var(--second-color--); color: #000; }
+          }
+        }
+      }
+    }
+  }
+
+  /* ---- THỂ LOẠI ---- */
+  .the-loai-section {
+    .genre-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 12px;
+
+      .genre-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 20px 12px;
+        background: white;
+        border: 1.5px solid #eee;
+        border-radius: 12px;
+        color: #333;
+        font-weight: 600;
+        font-size: 13px;
+        text-align: center;
+        transition: all 0.2s;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+        i { font-size: 22px; color: var(--second-color--); transition: transform 0.2s; }
+
+        &:hover {
+          background: var(--main-color--);
+          border-color: var(--second-color--);
+          transform: translateY(-4px);
+          box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+
+          i { transform: scale(1.2); }
+        }
+      }
+    }
+  }
+
+  /* ---- COMBO ---- */
+  .combo-section {
+    background: #fafafa;
+
+    .combo-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #eee;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      display: flex;
+      transition: all 0.25s;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+      }
+
+      .combo-imgs {
+        display: flex;
+        flex-direction: column;
+        width: 120px;
+        flex-shrink: 0;
+        overflow: hidden;
+
+        img { flex: 1; width: 100%; object-fit: cover; }
+      }
+
+      .combo-info {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .combo-tag {
+          display: inline-block;
+          background: var(--second-color--);
+          color: #000;
+          font-size: 10px;
+          font-weight: 800;
+          padding: 3px 10px;
+          border-radius: 20px;
+          letter-spacing: 0.5px;
+          align-self: flex-start;
+        }
+
+        h4 { font-size: 15px; font-weight: 800; color: #111; margin: 0; }
+        p { font-size: 13px; color: #777; margin: 0; }
+
+        .combo-price {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .price-new { font-size: 20px; font-weight: 800; color: #e53935; }
+          .price-old { font-size: 13px; color: #bbb; text-decoration: line-through; }
+        }
+
+        .btn-combo {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          background: #111;
+          color: white;
+          padding: 10px 18px;
+          border-radius: 8px;
+          font-weight: 700;
+          font-size: 13px;
+          transition: all 0.2s;
+          align-self: flex-start;
+          margin-top: auto;
+
+          &:hover { background: var(--second-color--); color: #000; }
+        }
+      }
+    }
+  }
+
+  /* ---- CTA ---- */
+  .cta-section {
+    background: linear-gradient(135deg, #1a0533 0%, #3d0f6e 60%, #7b2d8b 100%);
+    padding: 60px 0;
+
+    .cta-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+
+      .cta-text {
+        h3 { font-size: 26px; font-weight: 800; color: white; margin-bottom: 8px; }
+        p { color: rgba(255,255,255,0.75); font-size: 14px; max-width: 460px; line-height: 1.65; }
+      }
+
+      .cta-btns {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+
+        .cta-btn-primary {
+          background: var(--second-color--);
+          color: #000;
+          padding: 13px 28px;
+          border-radius: 8px;
+          font-weight: 700;
+          font-size: 14px;
+          border: 2px solid var(--second-color--);
+          transition: all 0.2s;
+
+          &:hover { background: transparent; color: var(--second-color--); }
+        }
+
+        .cta-btn-secondary {
+          background: transparent;
+          color: white;
+          padding: 13px 26px;
+          border-radius: 8px;
+          font-weight: 600;
+          font-size: 14px;
+          border: 2px solid rgba(255,255,255,0.45);
+          transition: all 0.2s;
+
+          &:hover { background: rgba(255,255,255,0.12); border-color: white; }
+        }
+      }
+    }
+  }
+}

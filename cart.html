@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giỏ hàng – Meraki</title>
+    <meta
+      name="description"
+      content="Giỏ hàng của bạn tại Meraki – Nhà sách truyện tranh & Manga chính hãng."
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/cart.css" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Titan+One&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- ===== HEADER ===== -->
+      <header id="main-header">
+        <div class="container">
+          <div class="top-bar">
+            <div class="top-bar-inner">
+              <div class="logo">
+                <a href="index.html">Meraki</a>
+              </div>
+
+              <nav class="main-nav">
+                <ul>
+                  <li><a href="index.html">Trang chủ</a></li>
+                  <li><a href="products.html">Danh sách truyện</a></li>
+                  <li><a href="cart.html" class="active">Giỏ hàng</a></li>
+                </ul>
+              </nav>
+
+              <div class="header-right">
+
+
+
+
+                <div class="header-icon">
+                  <i id="user-icon" class="fa-solid fa-user"></i>
+                  <ul class="user-info">
+                    <li class="signbtn">
+                      <a href="./login-form.html"
+                        ><i class="fa-solid fa-right-to-bracket"></i> Đăng
+                        nhập</a
+                      >
+                    </li>
+                    <li class="signbtn">
+                      <a href="./signup-form.html"
+                        ><i class="fa-solid fa-user-plus"></i> Đăng ký</a
+                      >
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                      <a href="#"
+                        ><i class="fa-solid fa-clock-rotate-left"></i> Đơn hàng
+                        của tôi</a
+                      >
+                    </li>
+
+                    <li class="divider"></li>
+                    <li>
+                      <a href="admin.html"
+                        ><i class="fa-solid fa-gear"></i> Quản trị</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+
+                <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+                  <span></span><span></span><span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- ===== END HEADER ===== -->
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-bar">
+        <div class="container">
+          <nav class="breadcrumb-nav">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a>
+            <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>
+            <span class="current">Giỏ hàng của bạn</span>
+          </nav>
+        </div>
+      </div>
+
+      <main class="cart-main-content">
+        <div class="container py-5">
+          <!-- Page Title -->
+          <div class="cart-title-section mb-4">
+            <h2 class="cart-page-title">
+              <i class="fa-solid fa-cart-shopping me-2"></i> GIỎ HÀNG
+              <span class="cart-title-count" id="cart-title-count">(3 sản phẩm)</span>
+            </h2>
+          </div>
+
+          <!-- Active Shopping Cart UI -->
+          <div class="row g-4" id="active-cart-layout">
+            <!-- Left Column: List of items -->
+            <div class="col-lg-8">
+              <div class="cart-items-wrapper">
+                <!-- Cart Item 1 -->
+                <div class="cart-item-card">
+                  <div class="cart-item-img-wrap">
+                    <img
+                      src="/imgs/main-picture.png"
+                      alt="Demon Slayer"
+                      class="cart-item-img"
+                    />
+                  </div>
+                  <div class="cart-item-info">
+                    <h5 class="cart-item-name">
+                      <a href="detail.html">Demon Slayer – Trọn bộ 23 tập</a>
+                    </h5>
+                    <p class="cart-item-meta">
+                      Tác giả: Koyoharu Gotouge · NXB Kim Đồng
+                    </p>
+                    <p class="cart-item-price-unit">
+                      Đơn giá: <span class="price-val">850,000 ₫</span>
+                    </p>
+                    <div class="cart-item-actions">
+                      <div class="cart-quantity-control">
+                        <button
+                          class="qty-btn btn-minus"
+                          aria-label="Giảm số lượng"
+                        >
+                          <i class="fa-solid fa-minus"></i>
+                        </button>
+                        <input
+                          type="number"
+                          class="qty-input"
+                          value="1"
+                          min="1"
+                          max="52"
+                        />
+                        <button
+                          class="qty-btn btn-plus"
+                          aria-label="Tăng số lượng"
+                        >
+                          <i class="fa-solid fa-plus"></i>
+                        </button>
+                      </div>
+                      <span class="in-stock-badge"
+                        ><i class="fa-solid fa-check"></i> Còn hàng</span
+                      >
+                    </div>
+                  </div>
+                  <div class="cart-item-right">
+                    <div class="cart-item-subtotal">850,000 ₫</div>
+                    <button
+                      class="cart-item-delete-btn"
+                      title="Xóa khỏi giỏ hàng"
+                    >
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Cart Item 2 -->
+                <div class="cart-item-card">
+                  <div class="cart-item-img-wrap">
+                    <img
+                      src="/imgs/manga.webp"
+                      alt="One Piece"
+                      class="cart-item-img"
+                    />
+                  </div>
+                  <div class="cart-item-info">
+                    <h5 class="cart-item-name">
+                      <a href="detail.html"
+                        >One Piece – Vol.100 (Bản đặc biệt)</a
+                      >
+                    </h5>
+                    <p class="cart-item-meta">
+                      Tác giả: Eiichiro Oda · NXB Kim Đồng
+                    </p>
+                    <p class="cart-item-price-unit">
+                      Đơn giá: <span class="price-val">65,000 ₫</span>
+                    </p>
+                    <div class="cart-item-actions">
+                      <div class="cart-quantity-control">
+                        <button
+                          class="qty-btn btn-minus"
+                          aria-label="Giảm số lượng"
+                        >
+                          <i class="fa-solid fa-minus"></i>
+                        </button>
+                        <input
+                          type="number"
+                          class="qty-input"
+                          value="2"
+                          min="1"
+                          max="100"
+                        />
+                        <button
+                          class="qty-btn btn-plus"
+                          aria-label="Tăng số lượng"
+                        >
+                          <i class="fa-solid fa-plus"></i>
+                        </button>
+                      </div>
+                      <span class="in-stock-badge"
+                        ><i class="fa-solid fa-check"></i> Còn hàng</span
+                      >
+                    </div>
+                  </div>
+                  <div class="cart-item-right">
+                    <div class="cart-item-subtotal">130,000 ₫</div>
+                    <button
+                      class="cart-item-delete-btn"
+                      title="Xóa khỏi giỏ hàng"
+                    >
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Cart Item 3 -->
+                <div class="cart-item-card">
+                  <div class="cart-item-img-wrap">
+                    <img
+                      src="/imgs/1701301154192.jpeg"
+                      alt="Attack on Titan"
+                      class="cart-item-img"
+                    />
+                  </div>
+                  <div class="cart-item-info">
+                    <h5 class="cart-item-name">
+                      <a href="detail.html">Attack on Titan – Trọn bộ 34 tập</a>
+                    </h5>
+                    <p class="cart-item-meta">
+                      Tác giả: Hajime Isayama · NXB Trẻ
+                    </p>
+                    <p class="cart-item-price-unit">
+                      Đơn giá: <span class="price-val">1,890,000 ₫</span>
+                    </p>
+                    <div class="cart-item-actions">
+                      <div class="cart-quantity-control">
+                        <button
+                          class="qty-btn btn-minus"
+                          aria-label="Giảm số lượng"
+                        >
+                          <i class="fa-solid fa-minus"></i>
+                        </button>
+                        <input
+                          type="number"
+                          class="qty-input"
+                          value="1"
+                          min="1"
+                          max="18"
+                        />
+                        <button
+                          class="qty-btn btn-plus"
+                          aria-label="Tăng số lượng"
+                        >
+                          <i class="fa-solid fa-plus"></i>
+                        </button>
+                      </div>
+                      <span class="in-stock-badge"
+                        ><i class="fa-solid fa-check"></i> Còn hàng</span
+                      >
+                    </div>
+                  </div>
+                  <div class="cart-item-right">
+                    <div class="cart-item-subtotal">1,890,000 ₫</div>
+                    <button
+                      class="cart-item-delete-btn"
+                      title="Xóa khỏi giỏ hàng"
+                    >
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Order Summary -->
+            <div class="col-lg-4">
+              <div class="cart-summary-card">
+                <h4 class="summary-title">Tóm tắt đơn hàng</h4>
+                <hr class="summary-divider" />
+
+                <div class="summary-details">
+                  <div class="summary-row">
+                    <span class="row-label">Tạm tính:</span>
+                    <span class="row-val" id="summary-subtotal">Đang tính...</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="row-label">Phí vận chuyển:</span>
+                    <span class="row-val" id="summary-shipping">Đang tính...</span>
+                  </div>
+                </div>
+
+                <hr class="summary-divider" />
+
+                <div class="summary-row total-row">
+                  <span class="total-label">Tổng cộng:</span>
+                  <span class="total-val" id="summary-total">Đang tính...</span>
+                </div>
+
+                <div class="checkout-actions mt-4">
+                  <button class="btn-checkout-primary w-100 mb-3" id="btn-checkout">
+                    <i class="fa-solid fa-credit-card me-2"></i> TIẾN HÀNH THANH TOÁN
+                  </button>
+                  <a href="index.html" class="btn-back-to-shop w-100">
+                    <i class="fa-solid fa-arrow-left me-2"></i> TIẾP TỤC MUA SẮM
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty Cart Layout (Hidden by default, can be shown by removing d-none and adding it to active-cart-layout) -->
+          <div
+            class="cart-empty-layout text-center py-5 d-none"
+            id="empty-cart-layout"
+          >
+            <div class="empty-cart-icon mb-4">
+              <i class="fa-solid fa-basket-shopping"></i>
+            </div>
+            <h3 class="empty-title mb-3">Giỏ hàng của bạn đang trống</h3>
+            <p class="empty-desc mb-4 text-muted">
+              Hãy khám phá hàng ngàn tựa truyện tranh manga, light novel đầy màu
+              sắc và hấp dẫn tại Meraki nhé!
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+              <a href="index.html" class="btn-shop-now">
+                <i class="fa-solid fa-house-chimney me-2"></i> Đến cửa hàng ngay
+              </a>
+            </div>
+          </div>
+
+
+        </div>
+      </main>
+
+      <!-- ===== FOOTER ===== -->
+      <footer>
+        <div class="footer-main">
+          <div class="container">
+            <div class="row g-4">
+              <div class="col-lg-4 col-md-6">
+                <div class="footer-brand">
+                  <h2 class="footer-logo"><a href="index.html">Meraki</a></h2>
+                  <p>
+                    Nhà sách truyện tranh, manga, light novel chính hãng hàng
+                    đầu Việt Nam. Giao hàng toàn quốc, cam kết chất lượng.
+                  </p>
+                  <div class="footer-social">
+                    <a href="" aria-label="Facebook"
+                      ><i class="fa-brands fa-square-facebook"></i
+                    ></a>
+                    <a href="" aria-label="Twitter"
+                      ><i class="fa-brands fa-square-x-twitter"></i
+                    ></a>
+                    <a href="" aria-label="Instagram"
+                      ><i class="fa-brands fa-square-instagram"></i
+                    ></a>
+                    <a href="" aria-label="Youtube"
+                      ><i class="fa-brands fa-square-youtube"></i
+                    ></a>
+                    <a href="" aria-label="Tiktok"
+                      ><i class="fa-brands fa-tiktok"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-6 col-6">
+                <div class="footer-links">
+                  <h5>Mua sắm</h5>
+                  <ul>
+                    <li><a href="#">Bán chạy nhất</a></li>
+                    <li><a href="#">Hàng mới về</a></li>
+                    <li><a href="#">Trọn bộ</a></li>
+                    <li><a href="#">Combo tiết kiệm</a></li>
+                    <li><a href="#">Khuyến mãi</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-6 col-6">
+                <div class="footer-links">
+                  <h5>Hỗ trợ</h5>
+                  <ul>
+                    <li><a href="#">Chính sách đổi trả</a></li>
+                    <li><a href="#">Chính sách vận chuyển</a></li>
+                    <li><a href="#">Hướng dẫn đặt hàng</a></li>
+                    <li><a href="#">Câu hỏi thường gặp</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="footer-newsletter">
+                  <h5>Đăng ký nhận tin</h5>
+                  <p>Nhận thông báo hàng mới về và ưu đãi đặc biệt mỗi tuần.</p>
+                  <div class="newsletter-form">
+                    <input type="email" placeholder="Nhập email của bạn..." />
+                    <button type="submit">
+                      <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                  </div>
+                  <div class="payment-icons">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-solid fa-university"></i>
+                    <i class="fa-solid fa-mobile-screen"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="container">
+            <div class="footer-bottom-inner">
+              <p>
+                Copyright © 2025 <strong>Meraki</strong>. All Rights Reserved.
+              </p>
+              <div class="footer-bottom-links">
+                <a href="#">Điều khoản</a>
+                <a href="#">Bảo mật</a>
+                <a href="#">Liên hệ</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <img src="" class="rounded me-2" alt="" />
+          <strong class="me-auto">Bootstrap</strong>
+          <small>11 mins ago</small>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Hello, world! This is a toast message.</div>
+      </div>
+    </div>
+    <script type="module" src="./js/cart.js"></script>
+  </body>
+</html>

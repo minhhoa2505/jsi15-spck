@@ -1,0 +1,1372 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang quản trị – Meraki Admin</title>
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Titan+One&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <!--
+    CÁCH HOẠT ĐỘNG (không dùng JS):
+    - Mỗi mục sidebar là một <label for="tab-xxx">
+    - Mỗi radio input ẩn #tab-xxx kiểm soát panel nào hiện
+    - CSS :checked ~ ... hiện panel tương ứng
+  -->
+  <body class="admin-body">
+    <!-- Radio inputs ẩn – đặt ở đầu body để CSS siblings hoạt động -->
+    <input
+      type="radio"
+      name="admin-tab"
+      id="tab-dashboard"
+      class="tab-radio"
+      checked
+    />
+    <input type="radio" name="admin-tab" id="tab-products" class="tab-radio" />
+
+    <div class="admin-wrapper">
+      <!-- ===== SIDEBAR ===== -->
+      <aside class="admin-sidebar">
+        <div class="sidebar-brand">
+          <a href="index.html" class="sidebar-logo">Meraki</a>
+          <span class="sidebar-tag">Admin</span>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="nav-section-title">Tổng quan</div>
+          <ul>
+            <li>
+              <label for="tab-dashboard" class="sidebar-link">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+              </label>
+            </li>
+          </ul>
+
+          <div class="nav-section-title">Quản lý</div>
+          <ul>
+            <li>
+              <label for="tab-products" class="sidebar-link">
+                <i class="fa-solid fa-book"></i>
+                <span>Sản phẩm (Truyện)</span>
+              </label>
+            </li>
+          </ul>
+
+          <div class="nav-section-title">Hệ thống</div>
+          <ul>
+            <li>
+              <a href="index.html" class="sidebar-link sidebar-link-exit">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Quay về trang chủ</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <!-- ===== END SIDEBAR ===== -->
+
+      <!-- ===== MAIN ===== -->
+      <div class="admin-main">
+        <!-- Topbar -->
+        <div class="admin-topbar">
+          <div class="admin-topbar-left">
+            <div class="topbar-page-label">
+              <!-- Label sẽ được cập nhật bằng CSS content -->
+              <span class="current-page-name"></span>
+            </div>
+          </div>
+          <div class="admin-topbar-right">
+
+            <div class="admin-user">
+              <img
+                src="https://ui-avatars.com/api/?name=Admin&background=fcb53b&color=000&bold=true"
+                alt="Admin"
+              />
+              <span>Admin</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PANELS ===== -->
+        <div class="admin-content">
+          <!-- ========== DASHBOARD ========== -->
+          <div class="panel" id="panel-dashboard">
+            <div class="page-header">
+              <div>
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-subtitle">
+                  Tổng quan hoạt động hệ thống đặt mua truyện Meraki.
+                </p>
+              </div>
+              <div class="header-date">
+                <i class="fa-regular fa-calendar"></i>
+                <span>28/06/2025</span>
+              </div>
+            </div>
+
+            <!-- Stat cards -->
+            <div class="row g-3 mb-4">
+              <div class="col-md-4">
+                <div class="stat-card stat-blue">
+                  <div class="stat-card-icon">
+                    <i class="fa-solid fa-book"></i>
+                  </div>
+                  <div class="stat-card-info">
+                    <span class="stat-card-value" id="dash-total-products">0</span>
+                    <span class="stat-card-label">Tổng sản phẩm (Truyện)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="stat-card stat-green">
+                  <div class="stat-card-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </div>
+                  <div class="stat-card-info">
+                    <span class="stat-card-value" id="dash-stock-products">0</span>
+                    <span class="stat-card-label">Sản phẩm còn hàng</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="stat-card stat-yellow">
+                  <div class="stat-card-icon">
+                    <i class="fa-solid fa-box-open"></i>
+                  </div>
+                  <div class="stat-card-info">
+                    <span class="stat-card-value" id="dash-out-of-stock-products">0</span>
+                    <span class="stat-card-label">Sản phẩm hết hàng</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- ========== END DASHBOARD ========== -->
+          </div>
+
+          <!-- ========== SẢN PHẨM ========== -->
+          <div class="panel" id="panel-products">
+            <div class="page-header">
+              <div>
+                <h1 class="page-title">Quản lý Sản phẩm (Truyện)</h1>
+                <p class="page-subtitle">
+                  Thêm, chỉnh sửa và quản lý danh mục truyện bán trên Meraki.
+                </p>
+              </div>
+              <button
+                class="btn-add"
+                data-bs-toggle="modal"
+                data-bs-target="#productModal"
+                id="btn-add"
+              >
+                <i class="fa-solid fa-plus"></i> Thêm sản phẩm
+              </button>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-lg-3 col-sm-6">
+                <div class="stat-card stat-blue">
+                  <div class="stat-card-icon">
+                    <i class="fa-solid fa-book"></i>
+                  </div>
+                  <div class="stat-card-info">
+                    <span class="stat-card-value" id="total-products"
+                      >1,248</span
+                    ><span class="stat-card-label">Tổng sản phẩm</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="stat-card stat-green">
+                  <div class="stat-card-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </div>
+                  <div class="stat-card-info">
+                    <span class="stat-card-value" id="stock-products"
+                      >1,102</span
+                    ><span class="stat-card-label">Còn hàng</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="stat-card stat-yellow">
+                  <div class="stat-card-icon">
+                    <i class="fa-solid fa-box-open"></i>
+                  </div>
+                  <div class="stat-card-info">
+                    <span class="stat-card-value" id="out-of-stock-products"
+                      >146</span
+                    ><span class="stat-card-label">Hết hàng</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="stat-card stat-red">
+                  <div class="stat-card-icon">
+                    <i class="fa-solid fa-fire"></i>
+                  </div>
+                  <div class="stat-card-info">
+                    <span class="stat-card-value" id="hot-products">48</span
+                    ><span class="stat-card-label">Bán chạy tháng này</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-toolbar">
+              <div class="toolbar-left">
+                <div class="search-admin-wrap">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input
+                    type="text"
+                    placeholder="Tìm tên truyện, tác giả, ISBN..."
+                  />
+                </div>
+                <select class="filter-select">
+                  <option value="">Tất cả thể loại</option>
+                  <option>Action / Phiêu lưu</option>
+                  <option>Romance / Tình cảm</option>
+                  <option>Fantasy / Huyền ảo</option>
+                  <option>Horror / Kinh dị</option>
+                  <option>Comedy / Hài</option>
+                </select>
+                <select class="filter-select">
+                  <option value="">Tình trạng kho</option>
+                  <option>Còn hàng</option>
+                  <option>Hết hàng</option>
+                  <option>Sắp về hàng</option>
+                </select>
+              </div>
+              <div class="toolbar-right">
+                <button class="btn-export">
+                  <i class="fa-solid fa-file-export"></i> Xuất Excel
+                </button>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th class="th-check"><input type="checkbox" /></th>
+                      <th>SKU</th>
+                      <th>Ảnh bìa</th>
+                      <th>Tên sản phẩm</th>
+                      <th>Tác giả</th>
+                      <th>Thể loại</th>
+                      <th>Giá bán</th>
+                      <th>Tồn kho</th>
+                      <th>Trạng thái</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody id="product-list">
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><span class="id-badge">SP-001</span></td>
+                      <td>
+                        <div class="product-thumb">
+                          <img src="/imgs/main-picture.png" alt="" />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="product-name">
+                          <strong>Demon Slayer – Kimetsu no Yaiba</strong
+                          ><small>Trọn bộ 23 tập</small>
+                        </div>
+                      </td>
+                      <td>Koyoharu Gotouge</td>
+                      <td>
+                        <span class="genre-pill">Action</span
+                        ><span class="genre-pill">Fantasy</span>
+                      </td>
+                      <td class="amount">850,000 ₫</td>
+                      <td>52</td>
+                      <td>389</td>
+                      <td>
+                        <span class="status-pill completed">Còn hàng</span>
+                      </td>
+                      <td>
+                        <div class="action-btns">
+                          <a
+                            href="detail.html"
+                            class="action-btn view"
+                            title="Xem trang SP"
+                            ><i class="fa-solid fa-eye"></i
+                          ></a>
+                          <button
+                            class="action-btn edit"
+                            title="Chỉnh sửa"
+                            data-bs-toggle="modal"
+                            data-bs-target="#productModal"
+                          >
+                            <i class="fa-solid fa-pen"></i>
+                          </button>
+                          <button class="action-btn delete" title="Xóa">
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><span class="id-badge">SP-002</span></td>
+                      <td>
+                        <div class="product-thumb">
+                          <img src="/imgs/manga.webp" alt="" />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="product-name">
+                          <strong>One Piece – Vol.100</strong
+                          ><small>Tập lẻ</small>
+                        </div>
+                      </td>
+                      <td>Eiichiro Oda</td>
+                      <td><span class="genre-pill">Adventure</span></td>
+                      <td class="amount">65,000 ₫</td>
+                      <td>0</td>
+                      <td>1,204</td>
+                      <td>
+                        <span class="status-pill cancelled">Hết hàng</span>
+                      </td>
+                      <td>
+                        <div class="action-btns">
+                          <a
+                            href="detail.html"
+                            class="action-btn view"
+                            title="Xem"
+                            ><i class="fa-solid fa-eye"></i
+                          ></a>
+                          <button
+                            class="action-btn edit"
+                            title="Chỉnh sửa"
+                            data-bs-toggle="modal"
+                            data-bs-target="#productModal"
+                          >
+                            <i class="fa-solid fa-pen"></i>
+                          </button>
+                          <button class="action-btn delete" title="Xóa">
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><span class="id-badge">SP-003</span></td>
+                      <td>
+                        <div class="product-thumb">
+                          <img src="/imgs/1701301154192.jpeg" alt="" />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="product-name">
+                          <strong>Attack on Titan – Full Set</strong
+                          ><small>Trọn bộ 34 tập</small>
+                        </div>
+                      </td>
+                      <td>Hajime Isayama</td>
+                      <td><span class="genre-pill">Dark Fantasy</span></td>
+                      <td class="amount">1,890,000 ₫</td>
+                      <td>18</td>
+                      <td>621</td>
+                      <td>
+                        <span class="status-pill completed">Còn hàng</span>
+                      </td>
+                      <td>
+                        <div class="action-btns">
+                          <a
+                            href="detail.html"
+                            class="action-btn view"
+                            title="Xem"
+                            ><i class="fa-solid fa-eye"></i
+                          ></a>
+                          <button
+                            class="action-btn edit"
+                            title="Chỉnh sửa"
+                            data-bs-toggle="modal"
+                            data-bs-target="#productModal"
+                          >
+                            <i class="fa-solid fa-pen"></i>
+                          </button>
+                          <button class="action-btn delete" title="Xóa">
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><span class="id-badge">SP-004</span></td>
+                      <td>
+                        <div class="product-thumb">
+                          <img src="/imgs/main-picture.png" alt="" />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="product-name">
+                          <strong>Jujutsu Kaisen – Vol.1-10</strong
+                          ><small>Bộ 10 tập</small>
+                        </div>
+                      </td>
+                      <td>Gege Akutami</td>
+                      <td><span class="genre-pill">Supernatural</span></td>
+                      <td class="amount">490,000 ₫</td>
+                      <td>35</td>
+                      <td>278</td>
+                      <td>
+                        <span class="status-pill completed">Còn hàng</span>
+                      </td>
+                      <td>
+                        <div class="action-btns">
+                          <a
+                            href="detail.html"
+                            class="action-btn view"
+                            title="Xem"
+                            ><i class="fa-solid fa-eye"></i
+                          ></a>
+                          <button
+                            class="action-btn edit"
+                            title="Chỉnh sửa"
+                            data-bs-toggle="modal"
+                            data-bs-target="#productModal"
+                          >
+                            <i class="fa-solid fa-pen"></i>
+                          </button>
+                          <button class="action-btn delete" title="Xóa">
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><span class="id-badge">SP-005</span></td>
+                      <td>
+                        <div class="product-thumb">
+                          <img src="/imgs/manga.webp" alt="" />
+                        </div>
+                      </td>
+                      <td>
+                        <div class="product-name">
+                          <strong>Spy x Family – Vol.1-12</strong
+                          ><small>Bộ 12 tập</small>
+                        </div>
+                      </td>
+                      <td>Tatsuya Endo</td>
+                      <td><span class="genre-pill">Comedy</span></td>
+                      <td class="amount">540,000 ₫</td>
+                      <td>61</td>
+                      <td>415</td>
+                      <td>
+                        <span class="status-pill completed">Còn hàng</span>
+                      </td>
+                      <td>
+                        <div class="action-btns">
+                          <a
+                            href="detail.html"
+                            class="action-btn view"
+                            title="Xem"
+                            ><i class="fa-solid fa-eye"></i
+                          ></a>
+                          <button
+                            class="action-btn edit"
+                            title="Chỉnh sửa"
+                            data-bs-toggle="modal"
+                            data-bs-target="#productModal"
+                          >
+                            <i class="fa-solid fa-pen"></i>
+                          </button>
+                          <button class="action-btn delete" title="Xóa">
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+          <!-- ========== END SẢN PHẨM ========== -->
+
+          <!-- ========== ĐƠN HÀNG ========== -->
+          <div class="panel" id="panel-orders">
+            <div class="page-header">
+              <div>
+                <h1 class="page-title">Quản lý Đơn hàng</h1>
+                <p class="page-subtitle">
+                  Theo dõi và xử lý đơn đặt mua truyện của khách hàng.
+                </p>
+              </div>
+              <button
+                class="btn-add"
+                data-bs-toggle="modal"
+                data-bs-target="#orderModal"
+              >
+                <i class="fa-solid fa-plus"></i> Tạo đơn hàng
+              </button>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-lg-3 col-sm-6">
+                <div class="stat-card stat-blue">
+                  <div class="stat-card-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                  </div>
+                  <div class="stat-card-info">
+                    <span class="stat-card-value">4,821</span
+                    ><span class="stat-card-label">Tổng đơn hàng</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="stat-card stat-yellow">
+                  <div class="stat-card-icon">
+                    <i class="fa-solid fa-clock"></i>
+                  </div>
+                  <div class="stat-card-info">
+                    <span class="stat-card-value">486</span
+                    ><span class="stat-card-label">Chờ xác nhận</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="stat-card stat-green">
+                  <div class="stat-card-icon">
+                    <i class="fa-solid fa-truck"></i>
+                  </div>
+                  <div class="stat-card-info">
+                    <span class="stat-card-value">152</span
+                    ><span class="stat-card-label">Đang giao hàng</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6">
+                <div class="stat-card stat-red">
+                  <div class="stat-card-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </div>
+                  <div class="stat-card-info">
+                    <span class="stat-card-value">4,102</span
+                    ><span class="stat-card-label">Đã giao thành công</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-tabs">
+              <button class="order-tab active">
+                Tất cả <span class="tab-count">4,821</span>
+              </button>
+              <button class="order-tab">
+                Chờ xác nhận <span class="tab-count">486</span>
+              </button>
+              <button class="order-tab">
+                Đang giao <span class="tab-count">152</span>
+              </button>
+              <button class="order-tab">
+                Đã giao <span class="tab-count">4,102</span>
+              </button>
+              <button class="order-tab">
+                Đã hủy <span class="tab-count">81</span>
+              </button>
+            </div>
+
+            <div class="table-toolbar">
+              <div class="toolbar-left">
+                <div class="search-admin-wrap">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input
+                    type="text"
+                    placeholder="Tìm mã đơn, tên khách hàng, SĐT..."
+                  />
+                </div>
+                <select class="filter-select">
+                  <option>Tất cả phương thức</option>
+                  <option>Giao hàng nhanh</option>
+                  <option>Giao hàng tiết kiệm</option>
+                  <option>Nhận tại cửa hàng</option>
+                </select>
+                <div class="date-range">
+                  <input type="date" title="Từ ngày" />
+                  <span>–</span>
+                  <input type="date" title="Đến ngày" />
+                </div>
+              </div>
+              <div class="toolbar-right">
+                <button class="btn-export">
+                  <i class="fa-solid fa-file-export"></i> Xuất Excel
+                </button>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th class="th-check"><input type="checkbox" /></th>
+                      <th>Mã đơn</th>
+                      <th>Khách hàng</th>
+                      <th>Sản phẩm</th>
+                      <th>Tổng tiền</th>
+                      <th>Thanh toán</th>
+                      <th>Vận chuyển</th>
+                      <th>Trạng thái</th>
+                      <th>Ngày đặt</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><span class="id-badge">#ORD-001</span></td>
+                      <td>
+                        <div class="customer-info">
+                          <img
+                            src="https://ui-avatars.com/api/?name=Nguyen+Van+A&background=ffe797&color=333&size=32"
+                            alt=""
+                          />
+                          <div>
+                            <strong>Nguyễn Văn A</strong
+                            ><small>0901 234 567</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="order-products">
+                          <span>Demon Slayer Bộ</span><small>x1 sản phẩm</small>
+                        </div>
+                      </td>
+                      <td class="amount">850,000 ₫</td>
+                      <td>
+                        <span class="payment-method"
+                          ><i class="fa-solid fa-money-bill-wave"></i> COD</span
+                        >
+                      </td>
+                      <td><span class="ship-badge ghn">GHN</span></td>
+                      <td>
+                        <span class="status-pill completed">Đã giao</span>
+                      </td>
+                      <td>28/06/2025</td>
+                      <td>
+                        <div class="action-btns">
+                          <button
+                            class="action-btn view"
+                            title="Chi tiết"
+                            data-bs-toggle="modal"
+                            data-bs-target="#orderDetailModal"
+                          >
+                            <i class="fa-solid fa-eye"></i>
+                          </button>
+                          <button class="action-btn edit" title="Cập nhật">
+                            <i class="fa-solid fa-pen"></i>
+                          </button>
+                          <button class="action-btn delete" title="Hủy đơn">
+                            <i class="fa-solid fa-ban"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><span class="id-badge">#ORD-002</span></td>
+                      <td>
+                        <div class="customer-info">
+                          <img
+                            src="https://ui-avatars.com/api/?name=Tran+Thi+B&background=fcb53b&color=333&size=32"
+                            alt=""
+                          />
+                          <div>
+                            <strong>Trần Thị B</strong
+                            ><small>0912 345 678</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="order-products">
+                          <span>One Piece Vol.100</span
+                          ><small>x3 sản phẩm</small>
+                        </div>
+                      </td>
+                      <td class="amount">195,000 ₫</td>
+                      <td>
+                        <span class="payment-method"
+                          ><i class="fa-solid fa-university"></i> Momo</span
+                        >
+                      </td>
+                      <td><span class="ship-badge ghtk">GHTK</span></td>
+                      <td>
+                        <span class="status-pill pending">Chờ xác nhận</span>
+                      </td>
+                      <td>28/06/2025</td>
+                      <td>
+                        <div class="action-btns">
+                          <button
+                            class="action-btn view"
+                            title="Chi tiết"
+                            data-bs-toggle="modal"
+                            data-bs-target="#orderDetailModal"
+                          >
+                            <i class="fa-solid fa-eye"></i>
+                          </button>
+                          <button class="action-btn edit" title="Xác nhận">
+                            <i class="fa-solid fa-pen"></i>
+                          </button>
+                          <button class="action-btn delete" title="Hủy đơn">
+                            <i class="fa-solid fa-ban"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><span class="id-badge">#ORD-003</span></td>
+                      <td>
+                        <div class="customer-info">
+                          <img
+                            src="https://ui-avatars.com/api/?name=Le+Van+C&background=4caf50&color=fff&size=32"
+                            alt=""
+                          />
+                          <div>
+                            <strong>Lê Văn C</strong><small>0923 456 789</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="order-products">
+                          <span>AOT Full Set + JJK</span
+                          ><small>x2 sản phẩm</small>
+                        </div>
+                      </td>
+                      <td class="amount">2,380,000 ₫</td>
+                      <td>
+                        <span class="payment-method"
+                          ><i class="fa-brands fa-cc-visa"></i> Visa</span
+                        >
+                      </td>
+                      <td><span class="ship-badge ghn">GHN</span></td>
+                      <td>
+                        <span class="status-pill processing">Đang giao</span>
+                      </td>
+                      <td>27/06/2025</td>
+                      <td>
+                        <div class="action-btns">
+                          <button
+                            class="action-btn view"
+                            title="Chi tiết"
+                            data-bs-toggle="modal"
+                            data-bs-target="#orderDetailModal"
+                          >
+                            <i class="fa-solid fa-eye"></i>
+                          </button>
+                          <button class="action-btn edit" title="Cập nhật">
+                            <i class="fa-solid fa-pen"></i>
+                          </button>
+                          <button class="action-btn delete" title="Hủy đơn">
+                            <i class="fa-solid fa-ban"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><span class="id-badge">#ORD-004</span></td>
+                      <td>
+                        <div class="customer-info">
+                          <img
+                            src="https://ui-avatars.com/api/?name=Pham+Thi+D&background=e91e63&color=fff&size=32"
+                            alt=""
+                          />
+                          <div>
+                            <strong>Phạm Thị D</strong
+                            ><small>0934 567 890</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="order-products">
+                          <span>Spy x Family Bộ</span><small>x1 sản phẩm</small>
+                        </div>
+                      </td>
+                      <td class="amount">540,000 ₫</td>
+                      <td>
+                        <span class="payment-method"
+                          ><i class="fa-solid fa-mobile-screen"></i>
+                          ZaloPay</span
+                        >
+                      </td>
+                      <td>
+                        <span class="ship-badge store">Tại cửa hàng</span>
+                      </td>
+                      <td>
+                        <span class="status-pill completed">Đã giao</span>
+                      </td>
+                      <td>27/06/2025</td>
+                      <td>
+                        <div class="action-btns">
+                          <button
+                            class="action-btn view"
+                            title="Chi tiết"
+                            data-bs-toggle="modal"
+                            data-bs-target="#orderDetailModal"
+                          >
+                            <i class="fa-solid fa-eye"></i>
+                          </button>
+                          <button class="action-btn edit" title="Cập nhật">
+                            <i class="fa-solid fa-pen"></i>
+                          </button>
+                          <button class="action-btn delete" title="Hủy">
+                            <i class="fa-solid fa-ban"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" /></td>
+                      <td><span class="id-badge">#ORD-005</span></td>
+                      <td>
+                        <div class="customer-info">
+                          <img
+                            src="https://ui-avatars.com/api/?name=Hoang+Van+E&background=9c27b0&color=fff&size=32"
+                            alt=""
+                          />
+                          <div>
+                            <strong>Hoàng Văn E</strong
+                            ><small>0945 678 901</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="order-products">
+                          <span>Naruto Bộ 72 tập</span
+                          ><small>x1 sản phẩm</small>
+                        </div>
+                      </td>
+                      <td class="amount">2,800,000 ₫</td>
+                      <td>
+                        <span class="payment-method"
+                          ><i class="fa-brands fa-cc-mastercard"></i>
+                          Mastercard</span
+                        >
+                      </td>
+                      <td><span class="ship-badge ghtk">GHTK</span></td>
+                      <td><span class="status-pill cancelled">Đã hủy</span></td>
+                      <td>26/06/2025</td>
+                      <td>
+                        <div class="action-btns">
+                          <button
+                            class="action-btn view"
+                            title="Chi tiết"
+                            data-bs-toggle="modal"
+                            data-bs-target="#orderDetailModal"
+                          >
+                            <i class="fa-solid fa-eye"></i>
+                          </button>
+                          <button class="action-btn edit" title="Khôi phục">
+                            <i class="fa-solid fa-rotate-left"></i>
+                          </button>
+                          <button class="action-btn delete" title="Xóa">
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-pagination">
+                <span class="pagination-info"
+                  >Hiển thị 1-5 / 4,821 đơn hàng</span
+                >
+                <div class="pagination-btns">
+                  <button class="page-btn" disabled>
+                    <i class="fa-solid fa-chevron-left"></i>
+                  </button>
+                  <button class="page-btn active">1</button>
+                  <button class="page-btn">2</button>
+                  <button class="page-btn">3</button>
+                  <span class="page-dots">...</span>
+                  <button class="page-btn">965</button>
+                  <button class="page-btn">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ========== END ĐƠN HÀNG ========== -->
+
+          <!-- ========== KHÁCH HÀNG ========== -->
+          <div class="panel panel-placeholder" id="panel-users">
+            <div class="page-header">
+              <div>
+                <h1 class="page-title">Quản lý Khách hàng</h1>
+                <p class="page-subtitle">
+                  Xem danh sách và lịch sử mua hàng của khách.
+                </p>
+              </div>
+            </div>
+            <div class="placeholder-section">
+              <i class="fa-solid fa-users"></i>
+              <p>Tính năng đang phát triển</p>
+            </div>
+          </div>
+
+          <!-- ========== THỂ LOẠI ========== -->
+          <div class="panel panel-placeholder" id="panel-genres">
+            <div class="page-header">
+              <div>
+                <h1 class="page-title">Quản lý Thể loại</h1>
+                <p class="page-subtitle">
+                  Thêm, sửa, xóa các thể loại truyện trong danh mục.
+                </p>
+              </div>
+            </div>
+            <div class="placeholder-section">
+              <i class="fa-solid fa-tags"></i>
+              <p>Tính năng đang phát triển</p>
+            </div>
+          </div>
+
+          <!-- ========== ĐÁNH GIÁ ========== -->
+          <div class="panel panel-placeholder" id="panel-comments">
+            <div class="page-header">
+              <div>
+                <h1 class="page-title">Đánh giá & Bình luận</h1>
+                <p class="page-subtitle">
+                  Duyệt đánh giá sản phẩm và bình luận của khách hàng.
+                </p>
+              </div>
+            </div>
+            <div class="placeholder-section">
+              <i class="fa-solid fa-star"></i>
+              <p>Tính năng đang phát triển</p>
+            </div>
+          </div>
+
+          <!-- ========== CÀI ĐẶT ========== -->
+          <div class="panel panel-placeholder" id="panel-settings">
+            <div class="page-header">
+              <div>
+                <h1 class="page-title">Cài đặt hệ thống</h1>
+                <p class="page-subtitle">
+                  Cấu hình thông tin cửa hàng, vận chuyển và thanh toán.
+                </p>
+              </div>
+            </div>
+            <div class="placeholder-section">
+              <i class="fa-solid fa-gear"></i>
+              <p>Tính năng đang phát triển</p>
+            </div>
+          </div>
+        </div>
+        <!-- .admin-content -->
+      </div>
+      <!-- .admin-main -->
+    </div>
+    <!-- .admin-wrapper -->
+
+    <!-- ===== MODAL: THÊM/SỬA SẢN PHẨM ===== -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+      >
+        <div class="modal-content admin-modal">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-title">
+              <i class="fa-solid fa-book-medical"></i> Thêm sản phẩm mới
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="product-form">
+              <div class="row g-3">
+                <div class="col-md-8">
+                  <div class="admin-form-group">
+                    <label>Tên truyện <span class="required">*</span></label>
+                    <input
+                      name="product-name"
+                      type="text"
+                      placeholder="VD: Demon Slayer – Kimetsu no Yaiba"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="admin-form-group">
+                    <label>SKU / Mã sản phẩm</label>
+                    <input
+                      name="product-id"
+                      type="text"
+                      placeholder="VD: SP-006"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="admin-form-group">
+                    <label>Tác giả <span class="required">*</span></label>
+                    <input
+                      name="product-tacgia"
+                      type="text"
+                      placeholder="Tên tác giả..."
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="admin-form-group">
+                    <label>Nhà xuất bản</label>
+                    <input
+                      name="product-nxb"
+                      type="text"
+                      placeholder="VD: NXB Kim Đồng..."
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="admin-form-group">
+                    <label>Giá bán <span class="required">*</span></label>
+                    <input
+                      name="product-price"
+                      type="number"
+                      placeholder="0"
+                      min="0"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="admin-form-group">
+                    <label>Số lượng tồn kho</label>
+                    <input
+                      name="product-quantity"
+                      type="number"
+                      placeholder="0"
+                      min="0"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="admin-form-group">
+                    <label>Loại sản phẩm</label>
+                    <select name="product-type">
+                      <option>Trọn bộ</option>
+                      <option>Tập lẻ</option>
+                      <option>Light Novel</option>
+                      <option>Artbook</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="admin-form-group">
+                    <label>Thể loại</label>
+                    <select name="product-tags" multiple>
+                      <option>Action</option>
+                      <option>Romance</option>
+                      <option>Fantasy</option>
+                      <option>Horror</option>
+                      <option>Comedy</option>
+                      <option>Supernatural</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="admin-form-group">
+                    <label>Tình trạng</label>
+                    <select name="product-status">
+                      <option>Còn hàng</option>
+                      <option>Hết hàng</option>
+                      <option>Đặt trước (Pre-order)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="admin-form-group">
+                    <label>Ảnh bìa</label>
+                    <input name="product-img" type="file" accept="image/*" />
+                    <img id="preview-image" src="" width="120" alt="" />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="admin-form-group">
+                    <label>Mô tả sản phẩm</label>
+                    <textarea
+                      name="product-desc"
+                      rows="4"
+                      placeholder="Nhập nội dung mô tả, tóm tắt truyện..."
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-modal-cancel"
+              data-bs-dismiss="modal"
+            >
+              Hủy
+            </button>
+            <button type="submit" form="product-form" class="btn-modal-save">
+              <i class="fa-solid fa-floppy-disk"></i> Lưu sản phẩm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MODAL: TẠO ĐƠN HÀNG ===== -->
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content admin-modal">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="fa-solid fa-cart-plus"></i> Tạo đơn hàng thủ công
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="order-form">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="admin-form-group">
+                    <label
+                      >Tên khách hàng <span class="required">*</span></label
+                    >
+                    <input type="text" placeholder="Họ và tên..." />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="admin-form-group">
+                    <label>Số điện thoại <span class="required">*</span></label>
+                    <input type="tel" placeholder="0901 234 567..." />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="admin-form-group">
+                    <label>Địa chỉ giao hàng</label>
+                    <input
+                      type="text"
+                      placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành..."
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="admin-form-group">
+                    <label>Sản phẩm <span class="required">*</span></label>
+                    <select>
+                      <option value="">-- Chọn sản phẩm --</option>
+                      <option>Demon Slayer Bộ – 850,000 ₫</option>
+                      <option>One Piece Vol.100 – 65,000 ₫</option>
+                      <option>Attack on Titan Full Set – 1,890,000 ₫</option>
+                      <option>Spy x Family Bộ – 540,000 ₫</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="admin-form-group">
+                    <label>Số lượng</label>
+                    <input type="number" placeholder="1" min="1" value="1" />
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="admin-form-group">
+                    <label>Phương thức TT</label>
+                    <select>
+                      <option>COD (Tiền mặt)</option>
+                      <option>Momo</option>
+                      <option>ZaloPay</option>
+                      <option>Visa/Mastercard</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="admin-form-group">
+                    <label>Đơn vị vận chuyển</label>
+                    <select>
+                      <option>GHN (Giao Hàng Nhanh)</option>
+                      <option>GHTK (Giao Hàng Tiết Kiệm)</option>
+                      <option>Nhận tại cửa hàng</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="admin-form-group">
+                    <label>Ghi chú</label>
+                    <input type="text" placeholder="Ghi chú giao hàng..." />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn-modal-cancel"
+              data-bs-dismiss="modal"
+            >
+              Hủy
+            </button>
+            <button type="submit" form="order-form" class="btn-modal-save">
+              <i class="fa-solid fa-cart-plus"></i> Tạo đơn hàng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MODAL: CHI TIẾT ĐƠN HÀNG ===== -->
+    <div
+      class="modal fade"
+      id="orderDetailModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content admin-modal">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="fa-solid fa-receipt"></i> Chi tiết đơn hàng #ORD-001
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="order-detail-grid">
+              <div class="order-detail-section">
+                <h6>Thông tin khách hàng</h6>
+                <div class="order-info-row">
+                  <span>Họ tên:</span><strong>Nguyễn Văn A</strong>
+                </div>
+                <div class="order-info-row">
+                  <span>Số điện thoại:</span><strong>0901 234 567</strong>
+                </div>
+                <div class="order-info-row">
+                  <span>Email:</span><strong>nguyenvana@email.com</strong>
+                </div>
+                <div class="order-info-row">
+                  <span>Địa chỉ:</span><strong>123 Lê Lợi, Q.1, TP.HCM</strong>
+                </div>
+              </div>
+              <div class="order-detail-section">
+                <h6>Thông tin đơn hàng</h6>
+                <div class="order-info-row">
+                  <span>Mã đơn:</span><strong>#ORD-001</strong>
+                </div>
+                <div class="order-info-row">
+                  <span>Sản phẩm:</span><strong>Demon Slayer Bộ 23 tập</strong>
+                </div>
+                <div class="order-info-row">
+                  <span>Số lượng:</span><strong>1 bộ</strong>
+                </div>
+                <div class="order-info-row">
+                  <span>Tổng tiền:</span
+                  ><strong class="price-highlight">850,000 ₫</strong>
+                </div>
+                <div class="order-info-row">
+                  <span>Thanh toán:</span><strong>COD (Tiền mặt)</strong>
+                </div>
+                <div class="order-info-row">
+                  <span>Vận chuyển:</span><strong>GHN – Giao hàng nhanh</strong>
+                </div>
+                <div class="order-info-row">
+                  <span>Mã vận đơn:</span><strong>GHN123456789</strong>
+                </div>
+                <div class="order-info-row">
+                  <span>Ngày đặt:</span><strong>28/06/2025</strong>
+                </div>
+                <div class="order-info-row">
+                  <span>Trạng thái:</span
+                  ><span class="status-pill completed">Đã giao</span>
+                </div>
+              </div>
+            </div>
+            <div class="order-update-status">
+              <h6>Cập nhật trạng thái đơn hàng</h6>
+              <div class="d-flex gap-2 align-items-center flex-wrap">
+                <select class="filter-select">
+                  <option>Chờ xác nhận</option>
+                  <option>Đã xác nhận</option>
+                  <option>Đang đóng gói</option>
+                  <option>Đang giao hàng</option>
+                  <option selected>Đã giao thành công</option>
+                  <option>Đã hủy</option>
+                  <option>Hoàn hàng</option>
+                </select>
+                <button class="btn-modal-save">
+                  <i class="fa-solid fa-check"></i> Cập nhật
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-modal-cancel" data-bs-dismiss="modal">
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="/js/admin.js"></script>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <img src="" class="rounded me-2" alt="" />
+          <strong class="me-auto">Bootstrap</strong>
+          <small>11 mins ago</small>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Hello, world! This is a toast message.</div>
+      </div>
+    </div>
+  </body>
+</html>
